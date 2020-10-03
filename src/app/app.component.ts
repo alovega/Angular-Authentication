@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
+import { AccountService } from './_services';
+import { User } from './_models';
+
+// tslint:disable-next-line: component-selector
+@Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
-  title = 'Authentication';
+    user: User;
+
+    constructor(private accountService: AccountService) {
+        this.accountService.user.subscribe(x => this.user = x);
+    }
+
+    // tslint:disable-next-line: typedef
+    logout() {
+        this.accountService.logout();
+    }
 }
